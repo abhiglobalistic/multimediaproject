@@ -22,6 +22,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/imageio/imageio-metadata-3.1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/imageio/imageio-tiff-3.1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/lire.jar"/>
-	<classpathentry kind="lib" path="/media/abhi/Documents/Ms passau/Softwares/servlet-3_0-final-jar_and_schema/javax.servlet.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/javax.servlet.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

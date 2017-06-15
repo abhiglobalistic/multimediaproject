@@ -4,10 +4,7 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-	<servlet>
-		<servlet-name>MultimediaServlet</servlet-name>
-		<servlet-class>multimedia.MultimediaServlet</servlet-class>
-	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>Multimedia</servlet-name>
 		<url-pattern>/multimedia</url-pattern>
