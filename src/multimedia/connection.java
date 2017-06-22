@@ -16,13 +16,11 @@ public class connection {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
 			
-			int c = 0;
-			while(c < 10)
-			{
-			 c++;
-			retreiveImage(con,c);
-			}
-			con.close();
+			
+		
+			retreiveImage(con);
+		
+			
 			
 			
 			//Statement st = con.createStatement();
@@ -43,23 +41,26 @@ public class connection {
 	
 	
 	
-	public static void retreiveImage(Connection con,int c){
+	public static void retreiveImage(Connection con){
 		
+		int i = 0; 
+		FileOutputStream fout = null;
 		try{
 			
 			PreparedStatement ps=con.prepareStatement("select * from IMAGE_TABLE.IMAGETABLE");  
 			ResultSet rs=ps.executeQuery();  
-			if(rs.next()){//now on 1st row  
-			              
+			while(rs.next()){//now on 1st row  
+			i++;             
 			Blob b=rs.getBlob(1);//2 means 2nd column data  
-			byte barr[]=b.getBytes(c,(int)b.length());//1 means first image  
+			byte barr[]=b.getBytes(1,(int)b.length());//1 means first image  
 			              
-			FileOutputStream fout=new FileOutputStream("/home/abhi/Desktop/multimedia/"+c+".jpg");  
+			fout=new FileOutputStream("/home/abhi/Desktop/multimedia/"+i+".jpg");  
 			fout.write(barr); 
 			              
-			fout.close(); 
-			
 			}
+			
+			fout.close(); 
+			con.close();
 			
 			}
 
