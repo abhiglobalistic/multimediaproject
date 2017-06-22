@@ -11,14 +11,14 @@ import javax.servlet.http.*;
 public class upload extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/json");
-		/*System.out.println(resp);
-		System.out.println(req);*/
+		System.out.println(resp);
+		System.out.println(req);
 		
 		req.setCharacterEncoding("UTF-8");
-		resp.setCharacterEncoding("UTF-8");
+		 resp.setCharacterEncoding("UTF-8");
 		
-		String output = getBody(req);
-		System.out.println(output);
+		 String output = getBody(req);
+		 System.out.println(output);
 	}
 	
 	
