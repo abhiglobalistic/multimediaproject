@@ -13,7 +13,9 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
 
 import net.semanticmetadata.lire.builders.GlobalDocumentBuilder;
+import net.semanticmetadata.lire.imageanalysis.features.global.AutoColorCorrelogram;
 import net.semanticmetadata.lire.imageanalysis.features.global.CEDD;
+import net.semanticmetadata.lire.imageanalysis.features.global.FCTH;
 import net.semanticmetadata.lire.utils.FileUtils;
 import net.semanticmetadata.lire.utils.LuceneUtils;
 /**
@@ -22,7 +24,13 @@ import net.semanticmetadata.lire.utils.LuceneUtils;
  */
 public class Indexer {
     public static void main(String[] args) throws IOException {
-        // Checking if arg[0] is there and if it is a directory.
+       
+    }
+    
+    
+    public static void indexing(String args[]){
+    	
+    	 // Checking if arg[0] is there and if it is a directory.
         boolean passed = false;
         if (args.length > 0) {
             File f = new File(args[0]);
@@ -35,12 +43,26 @@ public class Indexer {
             System.exit(1);
         }
         // Getting all images from a directory and its sub directories.
-        ArrayList<String> images = FileUtils.readFileLines(new File(args[0]), true);
+        ArrayList<String> images = null;
+		try {
+			images = FileUtils.readFileLines(new File(args[0]), true);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
         // Creating a CEDD document builder and indexing all files.
-        GlobalDocumentBuilder globalDocumentBuilder = new GlobalDocumentBuilder(CEDD.class);
+		GlobalDocumentBuilder globalDocumentBuilder = new GlobalDocumentBuilder();
+		globalDocumentBuilder.addExtractor(FCTH.class);
+		//globalDocumentBuilder.addExtractor(AutoColorCorrelogram.class);
         // Creating an Lucene IndexWriter
-        IndexWriter iw = LuceneUtils.createIndexWriter("index", true, LuceneUtils.AnalyzerType.WhitespaceAnalyzer);
+        IndexWriter iw = null;
+		try {
+			iw = LuceneUtils.createIndexWriter("index/dummy", true, LuceneUtils.AnalyzerType.WhitespaceAnalyzer);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         // Iterating through images building the low level features
         for (Iterator<String> it = images.iterator(); it.hasNext(); ) {
             String imageFilePath = it.next();
@@ -55,7 +77,13 @@ public class Indexer {
             }
         }
         // closing the IndexWriter
-        LuceneUtils.closeWriter(iw);
+        try {
+			LuceneUtils.closeWriter(iw);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         System.out.println("Finished indexing.");
+    	
     }
 }
